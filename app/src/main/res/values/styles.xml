@@ -1,0 +1,48 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="StandardButton">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/standard_button_rounded</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="LoginEmailButton">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/login_button_email_rounded</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="IndicatorButton">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:radius">5dp</item>
+        <item name="fontFamily">@font/main_font</item>
+    </style>
+
+    <!-- 스플래시 스타일 -->
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_image</item>
+    </style>
+
+    <!-- TextInputLayout activated underline 클릭시 밑줄과 글자도 오렌지색으로 바꿈-->
+    <style name="TextInputLayoutUnderlineColor">
+        <item name="colorControlNormal">@color/purple</item>
+        <item name="colorControlActivated">@color/purple</item>
+        <item name="colorControlHighlight">@color/purple</item>
+        <item name="android:textColorHint">@color/purple</item>
+    </style>
+
+</resources>
