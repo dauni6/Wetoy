@@ -3,13 +3,19 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@null</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ThemeActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@null</item>
+        <!-- Support library compatibility -->
+        <item name="background">@null</item>
     </style>
 
     <style name="StandardButton">
@@ -24,7 +30,8 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
     </style>
-    
+
+    <!-- 인디케이터 액티비티 아래 시작하기 버튼 -->
     <style name="IndicatorButton">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:textColor">@color/purple</item>
@@ -37,7 +44,7 @@
         <item name="android:windowBackground">@drawable/splash_image</item>
     </style>
 
-    <!-- TextInputLayout activated underline 클릭시 밑줄과 글자도 오렌지색으로 바꿈-->
+    <!-- TextInputLayout activated underline 클릭시 밑줄과 글자도 오렌지색으로 바꿈(로그인 액티비티)-->
     <style name="TextInputLayoutUnderlineColor">
         <item name="colorControlNormal">@color/purple</item>
         <item name="colorControlActivated">@color/purple</item>
