@@ -1,11 +1,25 @@
 <resources>
-    <string name="app_name">Wetoy</string>
+    <string name="app_name">위토이</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="left_sign"><![CDATA[<]]></string>
     <string name="right_sign"><![CDATA[>]]></string>
     <string name="forget_email"><u><b>비밀번호</b>를 잊으셨나요?</u></string>
     <string name="confirm_signup">회원가입을 누르면 <b>서비스 이용약관</b> 및\n<b>개인정보 취급방침</b>에 동의합니다.</string>
+    <string name="info_logut"><u>로그아웃</u></string>
+
+    <!-- 버튼 -->
     <string name="button_login_text">로그인</string>
     <string name="button_signup_text">회원가입</string>
+
+    <!-- 메뉴 label -->
+    <string name="bottom_menu_home">홈</string>
+    <string name="bottom_menu_search">검색</string>
+    <string name="bottom_menu_message">메세지</string>
+    <string name="bottom_menu_reservation">예약</string>
+    <string name="bottom_menu_user">내정보</string>
+
+    <!-- 힌트 -->
+    <string name="search_hint">검색어를 입력해 주세요!</string>
+
 </resources>

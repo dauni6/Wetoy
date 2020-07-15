@@ -64,7 +64,6 @@ class IndicatorActivity : AppCompatActivity() {
                         right_button.text = "시작하기"
                     }
                 }
-
             }
         })
 
