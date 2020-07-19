@@ -1,12 +1,10 @@
 package com.dontsu.wetoy.util
 
 import android.Manifest
-
-const val MULTI_PERMISSION_CODE = 602
-const val PERMISSION_CAMERA = 148
-const val PERMISSION_ACCESS_FINE_LOCATION = 46
-const val PERMISSION_WRITE_EXTERNAL_STORAGE = 169
-const val PERMISSION_READ_EXTERNAL_STORAGE = 200
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.dontsu.wetoy.R
 
 val requiredPermissions = arrayListOf(
     Manifest.permission.CAMERA,
@@ -14,3 +12,13 @@ val requiredPermissions = arrayListOf(
     Manifest.permission.READ_EXTERNAL_STORAGE,
     Manifest.permission.WRITE_EXTERNAL_STORAGE
 )
+
+fun ImageView.loadUri(uri: String?, errorDrawable: Int = R.drawable.default_user) {
+    val options = RequestOptions()
+        .error(errorDrawable)
+
+    Glide.with(this.context)
+        .setDefaultRequestOptions(options)
+        .load(uri)
+        .into(this)
+}

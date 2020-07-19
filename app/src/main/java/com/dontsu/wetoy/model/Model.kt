@@ -1,7 +1,7 @@
 package com.dontsu.wetoy.model
 
 data class User (
-    val userName: String? = "",
-    val email: String? = "",
-    val userImageUri: String? = ""
+    var userName: String? = "",
+    var email: String? = "",
+    var userImageUri: String? = ""
 )
