@@ -15,23 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.HomeActivity">
+        <activity android:name=".view.activities.HomeActivity">
 
         </activity>
         <activity
-            android:name=".view.SignupActivity"
+            android:name=".view.activities.SignupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"></activity>
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.activities.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".view.IndicatorActivity"
+            android:name=".view.activities.IndicatorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustResize">

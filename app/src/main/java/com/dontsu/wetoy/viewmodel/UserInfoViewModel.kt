@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.*
-import com.dontsu.wetoy.view.LoginActivity
+import com.dontsu.wetoy.view.activities.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage

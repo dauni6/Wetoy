@@ -1,27 +1,18 @@
-package com.dontsu.wetoy.view
+package com.dontsu.wetoy.view.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.dontsu.wetoy.R
 import com.dontsu.wetoy.databinding.FragmentUserBinding
 import com.dontsu.wetoy.util.*
-import com.dontsu.wetoy.util.FirebaseReference.firebaseAuth
-import com.dontsu.wetoy.util.FirebaseReference.firebaseDB
-import com.dontsu.wetoy.util.FirebaseReference.firebaseStorage
-import com.dontsu.wetoy.util.FirebaseReference.userId
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment : Fragment() {

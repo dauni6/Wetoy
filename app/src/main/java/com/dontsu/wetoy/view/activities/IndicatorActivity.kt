@@ -1,4 +1,4 @@
-package com.dontsu.wetoy.view
+package com.dontsu.wetoy.view.activities
 
 
 import android.content.Intent
@@ -16,15 +16,21 @@ import com.dontsu.wetoy.R
 import com.dontsu.wetoy.util.MULTI_PERMISSION_CODE
 import com.dontsu.wetoy.util.PermissionSupport
 import com.dontsu.wetoy.util.requiredPermissions
+import com.dontsu.wetoy.view.fragments.IndicatorOneFragment
+import com.dontsu.wetoy.view.fragments.IndicatorThreeFragment
+import com.dontsu.wetoy.view.fragments.IndicatorTwoFragment
 import kotlinx.android.synthetic.main.activity_indicator.*
 
 class IndicatorActivity : AppCompatActivity() {
 
     private lateinit var fragmentViewPagerAdapter: FragmentViewPagerAdapter
 
-    private val indicatorOne = IndicatorOneFragment()
-    private val indicatorTwo = IndicatorTwoFragment()
-    private val indicatorThree = IndicatorThreeFragment()
+    private val indicatorOne =
+        IndicatorOneFragment()
+    private val indicatorTwo =
+        IndicatorTwoFragment()
+    private val indicatorThree =
+        IndicatorThreeFragment()
 
     private var fmFlag = 0;
 

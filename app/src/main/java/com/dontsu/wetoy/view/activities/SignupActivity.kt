@@ -1,4 +1,4 @@
-package com.dontsu.wetoy.view
+package com.dontsu.wetoy.view.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +13,6 @@ import com.dontsu.wetoy.R
 import com.dontsu.wetoy.databinding.ActivitySignupBinding
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.DATA_USERS
-import com.dontsu.wetoy.util.FirebaseReference.firebaseAuth
-import com.dontsu.wetoy.util.FirebaseReference.firebaseDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth

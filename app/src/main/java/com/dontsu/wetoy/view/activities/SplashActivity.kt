@@ -1,4 +1,4 @@
-package com.dontsu.wetoy.view
+package com.dontsu.wetoy.view.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

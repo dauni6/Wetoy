@@ -1,4 +1,4 @@
-package com.dontsu.wetoy.view
+package com.dontsu.wetoy.view.fragments
 
 import android.Manifest
 import android.content.Context

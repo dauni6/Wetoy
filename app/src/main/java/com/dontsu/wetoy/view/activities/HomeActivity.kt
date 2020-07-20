@@ -1,16 +1,12 @@
-package com.dontsu.wetoy.view
+package com.dontsu.wetoy.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.*
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dontsu.wetoy.R
+import com.dontsu.wetoy.view.fragments.*
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 
