@@ -1,16 +1,16 @@
 package com.dontsu.wetoy.viewmodel
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dontsu.wetoy.model.User
-import com.dontsu.wetoy.util.DATA_USERS
+import com.dontsu.wetoy.util.*
 import com.dontsu.wetoy.view.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,19 +25,15 @@ class UserInfoViewModel: ViewModel() {
     private val firebaseStorage = FirebaseStorage.getInstance().reference
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-    var userImage = MutableLiveData<String>() //유저 이미지
-    var userName = MutableLiveData<String>() //유저 이름
-    var userEmail = MutableLiveData<String>() //이메일
-    
-    //HomeActivity로 들어오는 순간 유저정보 다 가져오기
+    var user = MutableLiveData<User>() //유저
+
+    //유저정보 초기화
     fun initializeUser() {
         firebaseDB.collection(DATA_USERS).document(userId!!).get()
             .addOnSuccessListener {
-                val user = it.toObject(User::class.java)
-                user?.let {
-                    userImage.value = user?.userImageUri
-                    userName.value = user?.userName
-                    userEmail.value = user?.userEmail
+                val person = it.toObject(User::class.java)
+                person?.let {
+                    user.value = person
                 }
             }
             .addOnFailureListener {
@@ -47,8 +43,7 @@ class UserInfoViewModel: ViewModel() {
     }
 
     //로그아웃
-    //이메일 유저인지 카톡, 네이버, 구글인지 when절로 잘 구분하기
-    fun requestLogout(fragment: Fragment) {
+    fun requestLogout(fragment: Fragment) { // 나중에 이메일 유저인지 카톡, 네이버, 구글인지 when절로 잘 구분하기
         fragment.userProgressLayout.visibility = View.VISIBLE
         //일단은 firebase로 하기
         firebaseAuth.signOut()
@@ -84,10 +79,48 @@ class UserInfoViewModel: ViewModel() {
         }
     }
 
-    //비밀번호변경
+
+    //프로필 사진 저장
+    fun storeImage(imageUri: Uri?, fragment: Fragment) {
+        imageUri?.let {
+            val filepath = firebaseStorage.child(DATA_USERS_PROFILE_IMG_STORAGE).child(userId!!)
+            filepath.putFile(imageUri).addOnSuccessListener {
+                filepath.downloadUrl.addOnSuccessListener {
+                    val uri = it.toString()
+                    firebaseDB.collection(DATA_USERS).document(userId).update(DATA_USERS_PROFILE_IMG, uri) //회원정보에 uri 업데이트
+                        .addOnSuccessListener {
+                            user.value?.userImageUri = uri
+                        }
+                }.addOnFailureListener {
+                    it.printStackTrace()
+                    Log.e("UserInfoViewModel", "프로필 사진 저장 에러 ${it.message}")
+                    Toast.makeText(fragment.requireActivity(), "이미지 업로드 실패. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener{
+                it.printStackTrace()
+                Log.e("UserInfoViewModel", "프로필 사진 저장 에러 ${it.message}")
+                Toast.makeText(fragment.requireActivity(), "이미지 업로드 실패. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     //닉네임변경
-    
+    fun requestUserNameChange(fragment: Fragment){
+        AlertDialog.Builder(fragment.context!!)
+            .setTitle("닉네임 변경하기")
+            .setMessage("변경할 닉네임을 적어주세요!")
+            .setPositiveButton("예") { dialog, which ->
+                
+            }
+            .setNegativeButton("취소") { dialog, which -> }
+            .show()
+    }
+
+    //비밀번호변경
+    fun requestPasswordChangeOnlyEmailUser(fragment: Fragment) {
+
+    }
+
     //푸시설정
     
     //건의 & 불편신고

@@ -70,12 +70,4 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-
-
-
 }

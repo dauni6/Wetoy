@@ -7,8 +7,8 @@
     
     <data>
         <variable
-            name="viewModel"
-            type="com.dontsu.wetoy.viewmodel.UserInfoViewModel" />
+            name="user"
+            type="com.dontsu.wetoy.model.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:imageUri="@{viewModel.userImage}"/>
+                    android:imageUri="@{user.userImageUri}"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@{viewModel.userName}"
+                android:text="@{user.userName}"
                 android:hint="유저네임"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -59,7 +59,7 @@
                     android:id="@+id/info_userEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.userEmail}"
+                    android:text="@{user.userEmail}"
                     android:hint="이메일"/>
 
                 <TextView
