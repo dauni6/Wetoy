@@ -14,6 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.dontsu.wetoy.R
 import com.dontsu.wetoy.databinding.FragmentUserBinding
 import com.dontsu.wetoy.util.*
+import com.dontsu.wetoy.util.FirebaseReference.firebaseAuth
+import com.dontsu.wetoy.util.FirebaseReference.firebaseDB
+import com.dontsu.wetoy.util.FirebaseReference.firebaseStorage
+import com.dontsu.wetoy.util.FirebaseReference.userId
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,13 +26,13 @@ import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment : Fragment() {
 
-    private lateinit var viewModel: UserInfoViewModel
-    private var binding: FragmentUserBinding? = null
-
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDB = FirebaseFirestore.getInstance()
     private val firebaseStorage = FirebaseStorage.getInstance().reference
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    private lateinit var viewModel: UserInfoViewModel
+    private var binding: FragmentUserBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +53,11 @@ class UserFragment : Fragment() {
         }
 
         info_requestUserLogout.setOnClickListener {
-            requestLogout()
+            viewModel.requestLogout(this@UserFragment)
         }
 
         info_requestUserDeleteAccount.setOnClickListener {
-            requestDeleteAccount()
+            viewModel.requestDeleteAccount(this@UserFragment)
         }
 
         info_userProfile.setOnClickListener {
@@ -70,38 +74,6 @@ class UserFragment : Fragment() {
         }
     }
 
-    //이메일 유저인지 카톡, 네이버, 구글인지 when절로 잘 구분하기
-    private fun requestLogout() {
-        userProgressLayout.visibility = View.VISIBLE
-        //일단은 firebase로 하기
-        firebaseAuth.signOut()
-        val intent = Intent(requireActivity(), LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NO_HISTORY
-        startActivity(intent)
-        requireActivity().finish()
-        userProgressLayout.visibility = View.GONE
-    }
-    
-    //회원탈퇴
-    private fun requestDeleteAccount() {
-        userProgressLayout.visibility = View.VISIBLE
-        firebaseAuth.currentUser?.delete()?.addOnCompleteListener {
-            if (it.isSuccessful) {
-                //정보 다 삭제해주기
-                firebaseDB.collection(DATA_USERS).document(userId!!).delete()
-                    .addOnCompleteListener {
-                        firebaseAuth.signOut()
-                        Toast.makeText(requireActivity(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(requireActivity(), LoginActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NO_HISTORY
-                        startActivity(intent)
-                        requireActivity().finish()
-                    }
-                userProgressLayout.visibility = View.GONE
-            }
-        }
-    }
-    
     //프로필 사진 저장하기
     private fun storeImage(imageUri: Uri?) {
         imageUri?.let {
@@ -111,7 +83,7 @@ class UserFragment : Fragment() {
                     val uri = it.toString()
                     firebaseDB.collection(DATA_USERS).document(userId).update(DATA_USERS_PROFILE_IMG, uri) //회원정보에 uri 업데이트
                         .addOnSuccessListener {
-                            viewModel.userImage.value = imageUri
+                            viewModel.userImage.value = uri
                             info_userProfile.loadUri(uri)
                         }
                 }

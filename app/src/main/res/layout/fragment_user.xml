@@ -34,7 +34,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:src="@{viewModel.userImage}" />
+                    android:imageUri="@{viewModel.userImage}"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -43,7 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="토마토"
+                android:text="@{viewModel.userName}"
+                android:hint="유저네임"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -58,7 +59,8 @@
                     android:id="@+id/info_userEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tomato@naver.com" />
+                    android:text="@{viewModel.userEmail}"
+                    android:hint="이메일"/>
 
                 <TextView
                     android:id="@+id/info_requestUserLogout"

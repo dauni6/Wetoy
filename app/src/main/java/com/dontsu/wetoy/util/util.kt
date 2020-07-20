@@ -2,6 +2,7 @@ package com.dontsu.wetoy.util
 
 import android.Manifest
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dontsu.wetoy.R
@@ -21,4 +22,9 @@ fun ImageView.loadUri(uri: String?, errorDrawable: Int = R.drawable.default_user
         .setDefaultRequestOptions(options)
         .load(uri)
         .into(this)
+}
+
+@BindingAdapter("android:imageUri")
+fun loadImage(view: ImageView, uri: String?) {
+    view.loadUri(uri)
 }

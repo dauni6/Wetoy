@@ -13,17 +13,22 @@ import com.dontsu.wetoy.R
 import com.dontsu.wetoy.databinding.ActivitySignupBinding
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.DATA_USERS
+import com.dontsu.wetoy.util.FirebaseReference.firebaseAuth
+import com.dontsu.wetoy.util.FirebaseReference.firebaseDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
 
     //firebase
-    private val firebaseDB = FirebaseFirestore.getInstance()
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseDB = FirebaseFirestore.getInstance()
+    private val firebaseStorage = FirebaseStorage.getInstance().reference
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
         val user = it.currentUser?.uid
         user?.let {
@@ -39,7 +44,6 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this@SignupActivity, R.layout.activity_signup)
-
         setSupportActionBar(binding.signupActivityToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //뒤로가기 버튼
 
