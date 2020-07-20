@@ -106,14 +106,16 @@ class UserInfoViewModel: ViewModel() {
 
     //닉네임변경
     fun requestUserNameChange(fragment: Fragment){
-        AlertDialog.Builder(fragment.context!!)
+        val custom = CustomUserNameChangeDialog()
+        custom.show(fragment.fragmentManager!!, "닉네임변경")
+        /*AlertDialog.Builder(fragment.context!!)
             .setTitle("닉네임 변경하기")
             .setMessage("변경할 닉네임을 적어주세요!")
             .setPositiveButton("예") { dialog, which ->
                 
             }
             .setNegativeButton("취소") { dialog, which -> }
-            .show()
+            .show()*/
     }
 
     //비밀번호변경
