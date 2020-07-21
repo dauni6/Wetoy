@@ -18,9 +18,15 @@
         <item name="background">@null</item>
     </style>
 
-    <style name="StandardButton">
+    <style name="StandardButtonOkay">
         <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="android:background">@drawable/standard_button_rounded</item>
+        <item name="android:background">@drawable/standard_button_okay_rounded</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="StandardButtonCancel">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/standard_button_cancel_rounded</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

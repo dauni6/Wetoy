@@ -5,6 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_margin="10dp"
+        android:text="닉네임 변경하기"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userNameTIL"
         android:layout_width="match_parent"
@@ -29,5 +37,30 @@
         android:layout_gravity="right"
         android:layout_marginRight="10dp"
         android:text="0/12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/changeCancelBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="취소"
+            style="@style/StandardButtonCancel"/>
+
+        <Button
+            android:id="@+id/changeOkayBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="변경"
+            style="@style/StandardButtonOkay"/>
+
+    </LinearLayout>
 
 </LinearLayout>

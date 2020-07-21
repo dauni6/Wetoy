@@ -1,6 +1,9 @@
 package com.dontsu.wetoy.util
 
 import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,22 +16,14 @@ import androidx.fragment.app.DialogFragment
 import com.dontsu.wetoy.R
 import kotlinx.android.synthetic.main.custom_dialog_username_change.*
 
-class CustomUserNameChangeDialog: DialogFragment() {
+class CustomUserNameChangeDialog(context: Context): AlertDialog(context) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.custom_dialog_username_change)
 
-    @NonNull
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view = requireActivity().layoutInflater.inflate(R.layout.custom_dialog_username_change, null)
-
-        val builder = AlertDialog.Builder(requireActivity())
-            .setView(view)
-            .setTitle("닉네임 변경하기")
-            .setPositiveButton("예") { dialog, which ->  
-
-            }
-            .setNegativeButton("취소") {dialog, which ->  }
-
-        return builder.create()
+        //배경 투명
+       /* window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))*/
     }
 }
 
