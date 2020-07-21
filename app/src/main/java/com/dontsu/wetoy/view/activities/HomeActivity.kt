@@ -2,6 +2,7 @@ package com.dontsu.wetoy.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -76,15 +77,14 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
 
     //닉네임 변경 버튼
     override fun onOkayClicked(customDialog: CustomUserNameChangeDialog, name: String) {
-        Toast.makeText(this, "변경 클릭", Toast.LENGTH_SHORT).show()
+        Log.d("HomeActivity", "onOkayClicked() 실행")
         viewModel.userNameChanged(name)
-        viewModel.user.value!!.userName = name
         customDialog.cancel()
     }
 
     //닉네임 변경 취소 버튼
     override fun onCancelClicked(customDialog: CustomUserNameChangeDialog) {
-        Toast.makeText(this, "취소 클릭", Toast.LENGTH_SHORT).show()
+        Log.d("HomeActivity", "onCancelClicked() 실행")
         customDialog.cancel()
     }
 

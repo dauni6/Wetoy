@@ -68,8 +68,7 @@ class UserInfoViewModel: ViewModel() {
                     .addOnCompleteListener {
                         Toast.makeText(fragment.requireActivity(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
                         val intent = Intent(fragment.requireActivity(), LoginActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NO_HISTORY
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NO_HISTORY
                         fragment.startActivity(intent)
                         fragment.userProgressLayout.visibility = View.GONE
                         fragment.requireActivity().finish()
@@ -96,12 +95,12 @@ class UserInfoViewModel: ViewModel() {
                         }
                 }.addOnFailureListener {
                     it.printStackTrace()
-                    Log.e("UserInfoViewModel", "프로필 사진 저장 에러 ${it.message}")
+                    Log.e("UserInfoViewModel", "프로필 사진 저장 실패 ${it.message}")
                     Toast.makeText(fragment.requireActivity(), "이미지 업로드 실패. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener{
                 it.printStackTrace()
-                Log.e("UserInfoViewModel", "프로필 사진 저장 에러 ${it.message}")
+                Log.e("UserInfoViewModel", "프로필 사진 저장 실패 ${it.message}")
                 Toast.makeText(fragment.requireActivity(), "이미지 업로드 실패. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -115,7 +114,14 @@ class UserInfoViewModel: ViewModel() {
 
     //닉네임변경
     fun userNameChanged(name: String) {
-
+        firebaseDB.collection(DATA_USERS).document(userId!!).update(DATA_USERS_USER_NAME, name)
+            .addOnSuccessListener {
+                user.value?.userName = name
+            }
+            .addOnFailureListener {
+                it.printStackTrace()
+                Log.e("UserInfoViewModel", "닉네임 변경 실패 ${it.message}")
+            }
     }
 
     //비밀번호변경

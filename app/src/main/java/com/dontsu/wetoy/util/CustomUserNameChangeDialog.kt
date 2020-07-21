@@ -2,13 +2,9 @@ package com.dontsu.wetoy.util
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
 import com.dontsu.wetoy.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -25,18 +21,17 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
         //배경 투명
         /*window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) 투명 하니까 완전 안보임 걍 */
 
-
-
-
         //변경버튼
         changeOkayBtn.setOnClickListener {
-            customDialogInterface.onOkayClicked(this, userNameET.text.toString())
+            continueChangeUserName()
         }
 
         //취소버튼
         changeCancelBtn.setOnClickListener {
             customDialogInterface.onCancelClicked(this)
         }
+
+        setTextChangeListener(userNameET, userNameTIL)
 
     }
 
@@ -47,8 +42,24 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+                s?.let {
+                    this@CustomUserNameChangeDialog.showTextLimit.text = "${it.length}/12"
+                }
+                til.isErrorEnabled = false
             }
         })
+    }
+
+    private fun continueChangeUserName() {
+        var proceed = true
+        if(userNameET.text.isNullOrEmpty()) {
+            userNameTIL.error = "닉네임을 적어주세요!"
+            userNameTIL.isErrorEnabled = true
+            proceed = false
+        }
+
+        if (proceed) {
+            customDialogInterface.onOkayClicked(this, userNameET.text.toString())
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.dontsu.wetoy.util
 //Firebase Database
 const val DATA_USERS = "Users"
 const val DATA_USERS_PROFILE_IMG = "userImageUri"
+const val DATA_USERS_USER_NAME = "userName"
 
 //Firebase Storage
 const val DATA_USERS_PROFILE_IMG_STORAGE = "UsersProfileImages"
