@@ -8,16 +8,20 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dontsu.wetoy.R
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.*
 import com.dontsu.wetoy.view.activities.HomeActivity
 import com.dontsu.wetoy.view.activities.LoginActivity
+import com.dontsu.wetoy.view.fragments.UserFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserInfoViewModel: ViewModel() {
@@ -93,6 +97,11 @@ class UserInfoViewModel: ViewModel() {
                         .addOnSuccessListener {
                             user.value?.userImageUri = uri
                         }
+                        .addOnFailureListener {
+                            it.printStackTrace()
+                            Log.e("UserInfoViewModel", "프로필 사진 저장 실패 ${it.message}")
+                            Toast.makeText(fragment.requireActivity(), "이미지 업로드 실패. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                        }
                 }.addOnFailureListener {
                     it.printStackTrace()
                     Log.e("UserInfoViewModel", "프로필 사진 저장 실패 ${it.message}")
@@ -113,10 +122,11 @@ class UserInfoViewModel: ViewModel() {
     }
 
     //닉네임변경
-    fun userNameChanged(name: String) {
+    fun userNameChanged(supportFragmentManager: FragmentManager, name: String) {
         firebaseDB.collection(DATA_USERS).document(userId!!).update(DATA_USERS_USER_NAME, name)
             .addOnSuccessListener {
                 user.value?.userName = name
+                supportFragmentManager.beginTransaction().replace(R.id.home_container, UserFragment()).commit()
             }
             .addOnFailureListener {
                 it.printStackTrace()

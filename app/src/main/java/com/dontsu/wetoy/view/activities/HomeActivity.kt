@@ -78,7 +78,7 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
     //닉네임 변경 버튼
     override fun onOkayClicked(customDialog: CustomUserNameChangeDialog, name: String) {
         Log.d("HomeActivity", "onOkayClicked() 실행")
-        viewModel.userNameChanged(name)
+        viewModel.userNameChanged(supportFragmentManager, name)
         customDialog.cancel()
     }
 
