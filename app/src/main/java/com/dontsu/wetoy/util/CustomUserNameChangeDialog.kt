@@ -16,7 +16,9 @@ import androidx.fragment.app.DialogFragment
 import com.dontsu.wetoy.R
 import kotlinx.android.synthetic.main.custom_dialog_username_change.*
 
-class CustomUserNameChangeDialog(context: Context): AlertDialog(context) {
+class CustomUserNameChangeDialog(context: Context, customDialogInterface: CustomDialogInterface): AlertDialog(context) {
+
+    private var customDialogInterface: CustomDialogInterface = customDialogInterface //인터페이스 연결
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,37 +26,21 @@ class CustomUserNameChangeDialog(context: Context): AlertDialog(context) {
 
         //배경 투명
        /* window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))*/
+
+        //에디트텍스트
+        userNameET.setOnClickListener {
+            customDialogInterface.onUserNameChangeClicked(userNameET, userNameET.text.toString())
+        }
+
+        //변경버튼
+        changeOkayBtn.setOnClickListener {
+            customDialogInterface.onOkayClicked(this)
+        }
+
+        //취소버튼
+        changeCancelBtn.setOnClickListener {
+            customDialogInterface.onCancelClicked(this)
+        }
+
     }
 }
-
-/*public class CustomLoginDialog extends DialogFragment {
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.custom_login_layout, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setTitle(“Login”);
-        builder.setView(view);
-
-        final EditText emailText = view.findViewById(R.id.email);
-        final EditText passwordText = view.findViewById(R.id.password);
-
-        builder.setNegativeButton(“Cancel”, null);
-        builder.setPositiveButton(“Login”, new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
-            Toast.makeText(getActivity(), “Email is ” + emailText.getText().toString() + ” and password is” + passwordText.getText().toString(), Toast.LENGTH_SHORT).show();
-        }
-    });
-
-        return builder.create();
-
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        super.onCancel(dialog);
-        Toast.makeText(getActivity(), “Dialog Canceld”, Toast.LENGTH_SHORT).show();
-    }
-}*/

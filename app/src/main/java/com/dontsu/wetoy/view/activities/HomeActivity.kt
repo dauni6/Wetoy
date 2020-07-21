@@ -4,13 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.dontsu.wetoy.R
+import com.dontsu.wetoy.util.CustomDialogInterface
+import com.dontsu.wetoy.util.CustomUserNameChangeDialog
 import com.dontsu.wetoy.view.fragments.*
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), CustomDialogInterface {
 
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
@@ -24,7 +29,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         bottomNV.itemIconTintList = null //null 해줘야 비로소 selector_.xml 이 작동함
-
         viewModel = ViewModelProvider(this).get(UserInfoViewModel::class.java)
         viewModel.initializeUser() //유저정보 가져오기
 
@@ -64,6 +68,23 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    //닉네임 변경 버튼
+    override fun onCancelClicked(customDialog: CustomUserNameChangeDialog) {
+        Toast.makeText(this, "취소 클릭", Toast.LENGTH_SHORT).show()
+        customDialog.cancel()
+    }
+
+    //닉네임 변경 취소 버튼
+    override fun onOkayClicked(customDialog: CustomUserNameChangeDialog) {
+        Toast.makeText(this, "변경 클릭", Toast.LENGTH_SHORT).show()
+        customDialog.cancel()
+    }
+
+    //닉네임 변경 에디트 텍스트
+    override fun onUserNameChangeClicked(et: TextInputEditText, name: String) {
+        
     }
 
 }

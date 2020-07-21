@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.*
+import com.dontsu.wetoy.view.activities.HomeActivity
 import com.dontsu.wetoy.view.activities.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -106,7 +107,8 @@ class UserInfoViewModel: ViewModel() {
 
     //닉네임변경
     fun requestUserNameChange(fragment: Fragment){
-        val customDialog = CustomUserNameChangeDialog(fragment.requireContext())
+        val customDialog = CustomUserNameChangeDialog(fragment.requireContext(), (fragment.requireActivity()) as HomeActivity)
+       /* customDialog.setCancelable(false)*/
         customDialog.show()
     }
 
