@@ -5,8 +5,7 @@ import com.google.android.material.textfield.TextInputEditText
 
 interface CustomDialogInterface {
 
-    fun onUserNameChangeClicked(et: TextInputEditText, name: String)
     fun onCancelClicked(customDialog: CustomUserNameChangeDialog)
-    fun onOkayClicked(customDialog: CustomUserNameChangeDialog)
+    fun onOkayClicked(customDialog: CustomUserNameChangeDialog, name: String)
 
 }

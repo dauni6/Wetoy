@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -29,8 +30,11 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         bottomNV.itemIconTintList = null //null 해줘야 비로소 selector_.xml 이 작동함
+
         viewModel = ViewModelProvider(this).get(UserInfoViewModel::class.java)
         viewModel.initializeUser() //유저정보 가져오기
+
+
 
         supportFragmentManager.beginTransaction().replace(R.id.home_container, homeFragment).commit()
 
@@ -71,20 +75,18 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
     }
 
     //닉네임 변경 버튼
+    override fun onOkayClicked(customDialog: CustomUserNameChangeDialog, name: String) {
+        Toast.makeText(this, "변경 클릭", Toast.LENGTH_SHORT).show()
+        viewModel.userNameChanged(name)
+        viewModel.user.value!!.userName = name
+        customDialog.cancel()
+    }
+
+    //닉네임 변경 취소 버튼
     override fun onCancelClicked(customDialog: CustomUserNameChangeDialog) {
         Toast.makeText(this, "취소 클릭", Toast.LENGTH_SHORT).show()
         customDialog.cancel()
     }
 
-    //닉네임 변경 취소 버튼
-    override fun onOkayClicked(customDialog: CustomUserNameChangeDialog) {
-        Toast.makeText(this, "변경 클릭", Toast.LENGTH_SHORT).show()
-        customDialog.cancel()
-    }
-
-    //닉네임 변경 에디트 텍스트
-    override fun onUserNameChangeClicked(et: TextInputEditText, name: String) {
-        
-    }
 
 }

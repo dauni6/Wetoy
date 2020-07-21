@@ -1,18 +1,9 @@
 package com.dontsu.wetoy.util
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.NonNull
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.DialogFragment
 import com.dontsu.wetoy.R
 import kotlinx.android.synthetic.main.custom_dialog_username_change.*
 
@@ -25,16 +16,11 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
         setContentView(R.layout.custom_dialog_username_change)
 
         //배경 투명
-       /* window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))*/
-
-        //에디트텍스트
-        userNameET.setOnClickListener {
-            customDialogInterface.onUserNameChangeClicked(userNameET, userNameET.text.toString())
-        }
+       /* window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) 투명 하니까 완전 안보임 걍 */
 
         //변경버튼
         changeOkayBtn.setOnClickListener {
-            customDialogInterface.onOkayClicked(this)
+            customDialogInterface.onOkayClicked(this, userNameET.text.toString())
         }
 
         //취소버튼

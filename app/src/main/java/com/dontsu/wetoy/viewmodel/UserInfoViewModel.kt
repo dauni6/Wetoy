@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.*
 import com.dontsu.wetoy.view.activities.HomeActivity
@@ -105,11 +106,15 @@ class UserInfoViewModel: ViewModel() {
         }
     }
 
-    //닉네임변경
+    //닉네임변경요청
     fun requestUserNameChange(fragment: Fragment){
         val customDialog = CustomUserNameChangeDialog(fragment.requireContext(), (fragment.requireActivity()) as HomeActivity)
-       /* customDialog.setCancelable(false)*/
         customDialog.show()
+    }
+
+    //닉네임변경
+    fun userNameChanged(name: String) {
+
     }
 
     //비밀번호변경
