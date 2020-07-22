@@ -32,7 +32,9 @@ class UserInfoViewModel: ViewModel() {
     private val firebaseStorage = FirebaseStorage.getInstance().reference
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-    var user = MutableLiveData<User>() //유저
+    var userImageUri = MutableLiveData<String>() // 이미지
+    var userName = MutableLiveData<String>() // 이름
+    var userEmail = MutableLiveData<String>() // 이메일
 
     //유저정보 초기화
     fun initializeUser() {
@@ -40,7 +42,9 @@ class UserInfoViewModel: ViewModel() {
             .addOnSuccessListener {
                 val person = it.toObject(User::class.java)
                 person?.let {
-                    user.value = person
+                    userImageUri.value = person.userImageUri
+                    userName.value = person.userName
+                    userEmail.value = person.userEmail
                 }
             }
             .addOnFailureListener {
@@ -67,7 +71,7 @@ class UserInfoViewModel: ViewModel() {
         firebaseAuth.currentUser?.delete()?.addOnCompleteListener {
             if (it.isSuccessful) {
                 firebaseAuth.signOut()
-                //정보 다 삭제해주기
+                //정보 다 삭제해주기 Store도 삭제 해줘야 되는데..
                 firebaseDB.collection(DATA_USERS).document(userId!!).delete()
                     .addOnCompleteListener {
                         Toast.makeText(fragment.requireActivity(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
@@ -85,7 +89,6 @@ class UserInfoViewModel: ViewModel() {
         }
     }
 
-
     //프로필 사진 저장
     fun storeImage(imageUri: Uri?, fragment: Fragment) {
         imageUri?.let {
@@ -95,7 +98,7 @@ class UserInfoViewModel: ViewModel() {
                     val uri = it.toString()
                     firebaseDB.collection(DATA_USERS).document(userId).update(DATA_USERS_PROFILE_IMG, uri) //회원정보에 uri 업데이트
                         .addOnSuccessListener {
-                            user.value?.userImageUri = uri
+                            userImageUri.value = uri
                         }
                         .addOnFailureListener {
                             it.printStackTrace()
@@ -122,11 +125,10 @@ class UserInfoViewModel: ViewModel() {
     }
 
     //닉네임변경
-    fun userNameChanged(supportFragmentManager: FragmentManager, name: String) {
+    fun userNameChanged(name: String) {
         firebaseDB.collection(DATA_USERS).document(userId!!).update(DATA_USERS_USER_NAME, name)
             .addOnSuccessListener {
-                user.value?.userName = name
-                supportFragmentManager.beginTransaction().replace(R.id.home_container, UserFragment()).commit()
+                userName.value = name
             }
             .addOnFailureListener {
                 it.printStackTrace()

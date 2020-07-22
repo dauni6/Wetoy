@@ -2,7 +2,9 @@ package com.dontsu.wetoy.view.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.dontsu.wetoy.R
 import com.dontsu.wetoy.databinding.FragmentUserBinding
 import com.dontsu.wetoy.util.*
+import com.dontsu.wetoy.util.FirebaseReference.firebaseStorage
+import com.dontsu.wetoy.util.FirebaseReference.userId
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment : Fragment() {
 
-    private lateinit var viewModel: UserInfoViewModel
+    lateinit var viewModel: UserInfoViewModel
     private var binding: FragmentUserBinding? = null
 
     override fun onCreateView(
@@ -36,7 +43,7 @@ class UserFragment : Fragment() {
         view?.let {
             binding = DataBindingUtil.bind(view)
             binding!!.lifecycleOwner = requireActivity()
-            binding!!.user = viewModel.user.value
+            binding!!.viewModel = viewModel
         }
 
         info_requestUserLogout.setOnClickListener {
@@ -64,5 +71,7 @@ class UserFragment : Fragment() {
             viewModel.storeImage(data?.data, this@UserFragment)
         }
     }
+
+
 
 }

@@ -35,8 +35,6 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
         viewModel = ViewModelProvider(this).get(UserInfoViewModel::class.java)
         viewModel.initializeUser() //유저정보 가져오기
 
-
-
         supportFragmentManager.beginTransaction().replace(R.id.home_container, homeFragment).commit()
 
         bottomNV.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
@@ -78,7 +76,7 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
     //닉네임 변경 버튼
     override fun onOkayClicked(customDialog: CustomUserNameChangeDialog, name: String) {
         Log.d("HomeActivity", "onOkayClicked() 실행")
-        viewModel.userNameChanged(supportFragmentManager, name)
+        viewModel.userNameChanged(name)
         customDialog.cancel()
     }
 
