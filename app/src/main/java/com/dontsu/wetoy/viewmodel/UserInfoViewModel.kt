@@ -68,11 +68,11 @@ class UserInfoViewModel: ViewModel() {
     //회원탈퇴
     fun requestDeleteAccount(fragment: Fragment) {
         fragment.userProgressLayout.visibility = View.VISIBLE
-        // Storage 삭제 -> DataBase 삭제 -> Authentication 삭제
+        // DataBase 삭제 -> Storage 삭제 -> Authentication 삭제
         firebaseDB.collection(DATA_USERS).document(userId!!).delete().addOnCompleteListener{
             if (it.isSuccessful) {
                 Log.d("UserInfoViewModel", "irebaseDB.collection(DATA_USERS).document(userId!!).delete() 삭제 성공")
-                firebaseStorage.child(userId!!).delete().addOnCompleteListener {
+                firebaseStorage.child(userId!!).child(userId!!).delete().addOnCompleteListener {
                     Log.d("UserInfoViewModel", "firebaseStorage.child(DATA_USERS_PROFILE_IMG_STORAGE).child(userId!!) 삭제 성공")
                     firebaseAuth.currentUser?.delete()?.addOnCompleteListener {
                         Log.d("UserInfoViewModel", "유저 삭제 성공")
