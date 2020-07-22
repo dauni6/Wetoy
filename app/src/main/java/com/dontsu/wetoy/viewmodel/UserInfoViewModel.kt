@@ -68,31 +68,42 @@ class UserInfoViewModel: ViewModel() {
     //회원탈퇴
     fun requestDeleteAccount(fragment: Fragment) {
         fragment.userProgressLayout.visibility = View.VISIBLE
-        firebaseAuth.currentUser?.delete()?.addOnCompleteListener {
+        // Storage 삭제 -> DataBase 삭제 -> Authentication 삭제
+        firebaseDB.collection(DATA_USERS).document(userId!!).delete().addOnCompleteListener{
             if (it.isSuccessful) {
-                firebaseAuth.signOut()
-                //정보 다 삭제해주기 Store도 삭제 해줘야 되는데..
-                firebaseDB.collection(DATA_USERS).document(userId!!).delete()
-                    .addOnCompleteListener {
+                Log.d("UserInfoViewModel", "irebaseDB.collection(DATA_USERS).document(userId!!).delete() 삭제 성공")
+                firebaseStorage.child(userId!!).delete().addOnCompleteListener {
+                    Log.d("UserInfoViewModel", "firebaseStorage.child(DATA_USERS_PROFILE_IMG_STORAGE).child(userId!!) 삭제 성공")
+                    firebaseAuth.currentUser?.delete()?.addOnCompleteListener {
+                        Log.d("UserInfoViewModel", "유저 삭제 성공")
+                        //firebaseAuth.signOut()
                         Toast.makeText(fragment.requireActivity(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
+                        fragment.userProgressLayout.visibility = View.GONE
                         val intent = Intent(fragment.requireActivity(), LoginActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NO_HISTORY
                         fragment.startActivity(intent)
-                        fragment.userProgressLayout.visibility = View.GONE
                         fragment.requireActivity().finish()
+                    }?.addOnFailureListener {
+                        it.printStackTrace()
+                        Log.e("UserInfoViewModel", "회원탈퇴 에러 ${it.message}")
                     }
-
+                }.addOnFailureListener {
+                    it.printStackTrace()
+                    Log.e("UserInfoViewModel", "firebaseStorage.child(DATA_USERS_PROFILE_IMG_STORAGE).child(userId!!) 삭제 실패 ${it.message}")
+                }
             }
-        }?.addOnFailureListener {
+        }.addOnFailureListener {
             it.printStackTrace()
-            Log.e("UserInfoViewModel", "회원탈퇴 에러 ${it.message}")
+            Log.e("UserInfoViewModel", "firebaseDB.collection(DATA_USERS) 삭제 실패 ${it.message}")
         }
+
+
     }
 
     //프로필 사진 저장
     fun storeImage(imageUri: Uri?, fragment: Fragment) {
         imageUri?.let {
-            val filepath = firebaseStorage.child(DATA_USERS_PROFILE_IMG_STORAGE).child(userId!!)
+            val filepath = firebaseStorage.child(userId!!).child(userId)
             filepath.putFile(imageUri).addOnSuccessListener {
                 filepath.downloadUrl.addOnSuccessListener {
                     val uri = it.toString()
@@ -125,7 +136,7 @@ class UserInfoViewModel: ViewModel() {
     }
 
     //닉네임변경
-    fun userNameChanged(name: String) {
+    fun userNameChangedComplete(name: String) {
         firebaseDB.collection(DATA_USERS).document(userId!!).update(DATA_USERS_USER_NAME, name)
             .addOnSuccessListener {
                 userName.value = name
@@ -136,9 +147,20 @@ class UserInfoViewModel: ViewModel() {
             }
     }
 
-    //비밀번호변경
+    //비밀번호변경요청
     fun requestPasswordChangeOnlyEmailUser(fragment: Fragment) {
+        val customDialog = CustomUserPasswordChangeDialog(fragment.requireContext(), (fragment.requireActivity()) as HomeActivity)
+        customDialog.show()
+    }
 
+    //비밀번호변경
+    fun userPasswordChangedComplete(password: String) {
+        firebaseAuth.currentUser?.updatePassword(password)!!.addOnCompleteListener {
+            Log.d("UserInfoViewModel", "userPasswordChangedComplete() 비밀번호 변경 성공")
+        }.addOnFailureListener {
+            Log.e("UserInfoViewModel", "userPasswordChangedComplete() ${it.message} 비밀번호 변경 실패")
+            it.printStackTrace()
+        }
     }
 
     //푸시설정

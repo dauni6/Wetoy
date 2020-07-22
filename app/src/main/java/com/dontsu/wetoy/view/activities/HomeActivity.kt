@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.dontsu.wetoy.R
 import com.dontsu.wetoy.util.CustomDialogInterface
 import com.dontsu.wetoy.util.CustomUserNameChangeDialog
+import com.dontsu.wetoy.util.CustomUserPasswordChangeDialog
 import com.dontsu.wetoy.view.fragments.*
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), CustomDialogInterface {
@@ -74,17 +72,33 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
     }
 
     //닉네임 변경 버튼
-    override fun onOkayClicked(customDialog: CustomUserNameChangeDialog, name: String) {
-        Log.d("HomeActivity", "onOkayClicked() 실행")
-        viewModel.userNameChanged(name)
+    override fun onUserNameOkayClicked(customDialog: CustomUserNameChangeDialog, name: String) {
+        Log.d("HomeActivity", "onUserNameOkayClicked() 실행")
+        viewModel.userNameChangedComplete(name)
         customDialog.cancel()
     }
 
     //닉네임 변경 취소 버튼
-    override fun onCancelClicked(customDialog: CustomUserNameChangeDialog) {
-        Log.d("HomeActivity", "onCancelClicked() 실행")
+    override fun onUserNameCancelClicked(customDialog: CustomUserNameChangeDialog) {
+        Log.d("HomeActivity", "onUserNameCancelClicked() 실행")
         customDialog.cancel()
     }
+
+    //비밀번호 변경 버튼
+    override fun onUserPasswordOkayClicked(customDialog: CustomUserPasswordChangeDialog, password: String) {
+        Log.d("HomeActivity", "onUserPasswordOkayClicked() 실행")
+        viewModel.userPasswordChangedComplete(password)
+        Toast.makeText(this, "비밀번호를 변경했습니다.", Toast.LENGTH_SHORT).show()
+        customDialog.cancel()
+    }
+
+    //비밀번호 변경 취소 버튼
+    override fun onUserPasswordCancelClicked(customDialog: CustomUserPasswordChangeDialog) {
+        Log.d("HomeActivity", "onUserPasswordCancelClicked() 실행")
+        customDialog.cancel()
+    }
+
+
 
 
 }

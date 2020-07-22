@@ -21,6 +21,8 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
         //배경 투명
         /*window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) 투명 하니까 완전 안보임 걍 */
 
+        setTextChangeListener(userNameET, userNameTIL)
+
         //변경버튼
         changeOkayBtn.setOnClickListener {
             continueChangeUserName()
@@ -28,10 +30,10 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
 
         //취소버튼
         changeCancelBtn.setOnClickListener {
-            customDialogInterface.onCancelClicked(this)
+            customDialogInterface.onUserNameCancelClicked(this)
         }
 
-        setTextChangeListener(userNameET, userNameTIL)
+
 
     }
 
@@ -59,7 +61,7 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
         }
 
         if (proceed) {
-            customDialogInterface.onOkayClicked(this, userNameET.text.toString())
+            customDialogInterface.onUserNameOkayClicked(this, userNameET.text.toString())
         }
     }
 }

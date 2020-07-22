@@ -45,23 +45,32 @@ class UserFragment : Fragment() {
             binding!!.lifecycleOwner = requireActivity()
             binding!!.viewModel = viewModel
         }
-
+        
+        //로그아웃
         info_requestUserLogout.setOnClickListener {
             viewModel.requestLogout(this@UserFragment)
         }
-
+        
+        //회원탈퇴
         info_requestUserDeleteAccount.setOnClickListener {
             viewModel.requestDeleteAccount(this@UserFragment)
         }
-
+        
+        //프로필사진 변경
         info_userProfile.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_CODE_PHOTO)
         }
-
+        
+        //닉네임 변경
         info_userName.setOnClickListener {
             viewModel.requestUserNameChange(this@UserFragment)
+        }
+
+        //비밀번호 변경
+        info_requestPasswordChange.setOnClickListener {
+           viewModel.requestPasswordChangeOnlyEmailUser(this@UserFragment)
         }
     }
 
