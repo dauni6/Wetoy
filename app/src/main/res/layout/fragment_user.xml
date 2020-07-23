@@ -46,7 +46,7 @@
                 android:text="@{viewModel.userName}"
                 android:hint="유저네임"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -60,6 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.userEmail}"
+                    android:textSize="20sp"
                     android:hint="이메일"/>
 
                 <TextView
@@ -82,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:textSize="20sp"
                 android:text="비밀번호 변경하기" />
 
             <View
@@ -100,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textSize="20sp"
                     android:text="푸시 설정" />
 
                 <Switch
@@ -119,6 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:textSize="20sp"
                 android:text="건의 &amp; 불편신고" />
 
             <View
@@ -132,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:clickable="true"
+                android:textSize="20sp"
                 android:text="탈퇴하기" />
 
         </LinearLayout>

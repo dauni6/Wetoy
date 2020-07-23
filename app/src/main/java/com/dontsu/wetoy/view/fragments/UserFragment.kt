@@ -72,6 +72,14 @@ class UserFragment : Fragment() {
         info_requestPasswordChange.setOnClickListener {
            viewModel.requestPasswordChangeOnlyEmailUser(this@UserFragment)
         }
+
+        //건의 & 불편신고
+        info_requestQA.setOnClickListener {
+            viewModel.requestQA(this@UserFragment, info_userEmail.text.toString())
+        }
+
+        //푸쉬
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

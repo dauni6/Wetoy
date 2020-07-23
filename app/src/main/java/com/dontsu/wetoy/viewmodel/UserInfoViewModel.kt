@@ -4,24 +4,17 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.dontsu.wetoy.R
 import com.dontsu.wetoy.model.User
 import com.dontsu.wetoy.util.*
 import com.dontsu.wetoy.view.activities.HomeActivity
 import com.dontsu.wetoy.view.activities.LoginActivity
-import com.dontsu.wetoy.view.fragments.UserFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserInfoViewModel: ViewModel() {
@@ -66,6 +59,8 @@ class UserInfoViewModel: ViewModel() {
     }
 
     //회원탈퇴
+    // 폴더 자체를 삭제할 수 없기때문에, Storage에 있는 파일들 하나하나를 삭제해줘야 된다.
+    // 현재 폴더 안의 모든 데이터를 가져와서 하나하나씩 String에 담은 다음 delete() 해줘야 된다.
     fun requestDeleteAccount(fragment: Fragment) {
         fragment.userProgressLayout.visibility = View.VISIBLE
         // DataBase 삭제 -> Storage 삭제 -> Authentication 삭제
@@ -96,8 +91,6 @@ class UserInfoViewModel: ViewModel() {
             it.printStackTrace()
             Log.e("UserInfoViewModel", "firebaseDB.collection(DATA_USERS) 삭제 실패 ${it.message}")
         }
-
-
     }
 
     //프로필 사진 저장
@@ -163,8 +156,24 @@ class UserInfoViewModel: ViewModel() {
         }
     }
 
+    //건의 & 불편신고
+    fun requestQA(fragment: Fragment, email: String) {
+        val to = "donghyun.k117@gmail.com"
+        val subject = "[위토이] 건의 & 불편 신고"
+        val body = "사용자 이메일 :$email <br/>" +
+                " 안드로이드 버전 : ${android.os.Build.VERSION.SDK_INT} <br/>" +
+                " 모델명 : ${android.os.Build.BRAND} ${android.os.Build.MODEL} <br/>" +
+                " 앱버전 : ${fragment.requireActivity().packageManager.getPackageInfo(fragment.requireActivity().packageName, 0).versionName} <br/><br/>"
+        val total = "mailto:$to?&subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(total)
+        fragment.requireActivity().startActivity(intent)
+
+    }
+
+
     //푸시설정
     
-    //건의 & 불편신고
+
 
 }
