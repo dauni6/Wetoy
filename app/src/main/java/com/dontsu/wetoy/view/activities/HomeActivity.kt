@@ -1,5 +1,6 @@
 package com.dontsu.wetoy.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -39,36 +40,48 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
             when(menuItem.itemId) {
                 R.id.bottom_menu_home -> {
                     supportFragmentManager.beginTransaction().replace(R.id.home_container, homeFragment).commit()
+                    ftb_write_btn.visibility = View.VISIBLE
                     search_bar.visibility = View.INVISIBLE
                     title_text.text = "홈"
                     true
                 }
                 R.id.bottom_menu_search -> {
                     supportFragmentManager.beginTransaction().replace(R.id.home_container, searchFragment).commit()
+                    ftb_write_btn.visibility = View.VISIBLE
                     search_bar.visibility = View.VISIBLE
                     title_text.text= "검색"
                     true
                 }
                 R.id.bottom_menu_message -> {
                     supportFragmentManager.beginTransaction().replace(R.id.home_container, messageFragment).commit()
+                    ftb_write_btn.visibility = View.VISIBLE
                     search_bar.visibility = View.INVISIBLE
                     title_text.text = "메세지"
                     true
                 }
                 R.id.bottom_menu_reservation -> {
                     supportFragmentManager.beginTransaction().replace(R.id.home_container, reservationFragment).commit()
+                    ftb_write_btn.visibility = View.VISIBLE
                     search_bar.visibility = View.INVISIBLE
                     title_text.text = "예약"
                     true
                 }
                 else -> {
                     supportFragmentManager.beginTransaction().replace(R.id.home_container, userFragment).commit()
+                    ftb_write_btn.visibility = View.GONE
                     search_bar.visibility = View.INVISIBLE
                     title_text.text = "내정보"
                     true
                 }
             }
         }
+    }
+    
+    //플로팅 버튼 글쓰기
+    fun onWrite(v: View) {
+        val intent = Intent(this, WriteActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+        startActivity(intent)
     }
 
     //닉네임 변경 버튼
