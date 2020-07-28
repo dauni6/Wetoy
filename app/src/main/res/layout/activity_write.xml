@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="0개"
+                        android:text="@{viewModel.toyKeywordCount}"
                         android:layout_gravity="center_vertical"/>
 
                     <Button

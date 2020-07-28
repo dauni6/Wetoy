@@ -104,7 +104,7 @@ class WriteActivity : AppCompatActivity(), CustomWriteDialogInterface {
             proceed = false
         }
 
-        if (viewModel.toyKeywords.value?.size == 0) {
+        if (binding.writeKeywordCount.text == "0개" ) {
             Toast.makeText(this, "최소 하나의 키워드를 추가해 주세요.", Toast.LENGTH_SHORT).show()
             proceed = false
         }

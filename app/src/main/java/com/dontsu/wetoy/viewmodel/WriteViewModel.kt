@@ -1,5 +1,6 @@
 package com.dontsu.wetoy.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dontsu.wetoy.util.CustomWriteAddKeywordDialog
@@ -23,8 +24,12 @@ class WriteViewModel: ViewModel() {
     var toyText = MutableLiveData<String>() // 글 내용
     var toyRegion = MutableLiveData<String>() // 지역
     var toyKeywords = MutableLiveData<ArrayList<String>>() //키워드
+    var toyKeywordCount = MutableLiveData<String>() //키워드 갯수
 
+    init {
 
+        toyKeywordCount.value = "0개" //키워드 갯수 초기화
+    }
 
     //키워드 추가 요청
     fun requestAddKeyword(activity: WriteActivity) {
@@ -35,12 +40,8 @@ class WriteViewModel: ViewModel() {
     //키워드 배열에 추가
     fun addKeywordArray(keyword: String) {
         toyKeywords.value?.add(keyword)
-
+        Log.d("배열", "${toyKeywords.value?.size}")
+        //toyKeywordCount.value = "${toyKeywords.value?.size}개"
     }
-
-    //장난감 이미지 보여주기
-
-    //
-
 
 }
