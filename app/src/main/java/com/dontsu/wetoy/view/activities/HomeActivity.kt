@@ -9,14 +9,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.dontsu.wetoy.R
-import com.dontsu.wetoy.util.CustomDialogInterface
+import com.dontsu.wetoy.util.CustomUserInfoDialogInterface
 import com.dontsu.wetoy.util.CustomUserNameChangeDialog
 import com.dontsu.wetoy.util.CustomUserPasswordChangeDialog
 import com.dontsu.wetoy.view.fragments.*
 import com.dontsu.wetoy.viewmodel.UserInfoViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity(), CustomDialogInterface {
+class HomeActivity : AppCompatActivity(), CustomUserInfoDialogInterface {
 
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
@@ -80,7 +80,6 @@ class HomeActivity : AppCompatActivity(), CustomDialogInterface {
     //플로팅 버튼 글쓰기
     fun onWrite(v: View) {
         val intent = Intent(this, WriteActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
         startActivity(intent)
     }
 

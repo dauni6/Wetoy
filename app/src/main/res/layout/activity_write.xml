@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dontsu.wetoy.viewmodel.WriteViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,34 +47,38 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
                         android:text="지역 선택 "
-                        android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <Spinner
                         android:id="@+id/spinner_region"
+                        android:spinnerMode="dialog"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
-
 
                 <ImageView
                     android:id="@+id/write_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:layout_marginTop="8dp"
                     android:minHeight="300dp"
                     android:scaleType="center"
-                    android:src="@drawable/default_user" />
-                
+                    android:src="@drawable/default_user"
+                    android:imageUri="@{viewModel.toyImageUri}" />
+
                 <EditText
                     android:id="@+id/write_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="내용"
                     android:textColor="@color/black" />
-                
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,22 +88,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="키워드"
-                        android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:layout_margin="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/write_keyword_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="0개"
+                        android:layout_gravity="center_vertical"/>
+
                     <Button
+                        android:id="@+id/write_add_keyword_btn"
+                        style="@style/StandardItemAddButton"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
                         android:text="추가하기 + "
-                        style="@style/StandardItemAddButton"/>
+                        android:layout_gravity="center_vertical"
+                        android:onClick="onAddKeyword"/>
+
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/uploadBtn"
                     style="@style/StandardButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:text="작성하기" />
+                    android:text="작성하기"
+                    android:onClick="onUpload"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

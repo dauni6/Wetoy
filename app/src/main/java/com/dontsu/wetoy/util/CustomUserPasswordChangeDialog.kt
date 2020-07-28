@@ -10,9 +10,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.custom_dialog_userpassword_change.*
 
-class CustomUserPasswordChangeDialog(context: Context, customDialogInterface: CustomDialogInterface): Dialog(context) {
+class CustomUserPasswordChangeDialog(context: Context, customUserInfoDialogInterface: CustomUserInfoDialogInterface): Dialog(context) {
 
-    private var customDialogInterface: CustomDialogInterface = customDialogInterface
+    private var customUserInfoDialogInterface: CustomUserInfoDialogInterface = customUserInfoDialogInterface
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class CustomUserPasswordChangeDialog(context: Context, customDialogInterface: Cu
         }
 
         changeCancelBtn.setOnClickListener {
-            customDialogInterface.onUserPasswordCancelClicked(this)
+            customUserInfoDialogInterface.onUserPasswordCancelClicked(this)
         }
     }
 
@@ -62,7 +62,7 @@ class CustomUserPasswordChangeDialog(context: Context, customDialogInterface: Cu
         }
 
         if (proceed) {
-            customDialogInterface.onUserPasswordOkayClicked(this, userPasswordCheckET.text.toString())
+            customUserInfoDialogInterface.onUserPasswordOkayClicked(this, userPasswordCheckET.text.toString())
         }
 
 

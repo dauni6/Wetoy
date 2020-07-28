@@ -10,9 +10,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.custom_dialog_username_change.*
 
-class CustomUserNameChangeDialog(context: Context, customDialogInterface: CustomDialogInterface): Dialog(context) {
+class CustomUserNameChangeDialog(context: Context, customUserInfoDialogInterface: CustomUserInfoDialogInterface): Dialog(context) {
 
-    private var customDialogInterface: CustomDialogInterface = customDialogInterface //인터페이스 연결
+    private var customUserInfoDialogInterface: CustomUserInfoDialogInterface = customUserInfoDialogInterface //인터페이스 연결
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
 
         //취소버튼
         changeCancelBtn.setOnClickListener {
-            customDialogInterface.onUserNameCancelClicked(this)
+            customUserInfoDialogInterface.onUserNameCancelClicked(this)
         }
 
 
@@ -61,7 +61,7 @@ class CustomUserNameChangeDialog(context: Context, customDialogInterface: Custom
         }
 
         if (proceed) {
-            customDialogInterface.onUserNameOkayClicked(this, userNameET.text.toString())
+            customUserInfoDialogInterface.onUserNameOkayClicked(this, userNameET.text.toString())
         }
     }
 }
