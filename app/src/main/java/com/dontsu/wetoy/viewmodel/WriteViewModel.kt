@@ -26,8 +26,9 @@ class WriteViewModel: ViewModel() {
     var toyKeywords = MutableLiveData<ArrayList<String>>() //키워드
     var toyKeywordCount = MutableLiveData<String>() //키워드 갯수
 
-    init {
+    var keywordsArray = arrayListOf<String>() //임시 키워드 저장 배열
 
+    init {
         toyKeywordCount.value = "0개" //키워드 갯수 초기화
     }
 
@@ -39,9 +40,11 @@ class WriteViewModel: ViewModel() {
 
     //키워드 배열에 추가
     fun addKeywordArray(keyword: String) {
-        toyKeywords.value?.add(keyword)
-        Log.d("배열", "${toyKeywords.value?.size}")
-        //toyKeywordCount.value = "${toyKeywords.value?.size}개"
+        keywordsArray.add(keyword)
+        toyKeywords.value = keywordsArray
+
+        Log.d("배열", "${toyKeywords.value?.size} $keyword")
+        toyKeywordCount.value = "${toyKeywords.value?.size}개"
     }
 
 }
